@@ -7,16 +7,16 @@ import lombok.Data;
 
 @Data
 public class SignupRequest {
-    @NotBlank
+    @NotBlank(message = "email is required")
     @Size(max = 50)
     @Email
     private String email;
 
-    @NotBlank
+    @NotBlank(message = "name is required")
     @Size(max = 30)
-    private String username;
+    private String name;
 
-    @NotBlank
+    @NotBlank(message = "password is required")
     @Size(min = 8, max = 40)
     private String password;
 }

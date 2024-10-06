@@ -2,7 +2,9 @@ package com.openclassroom.mdd_app.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +20,7 @@ import com.openclassroom.mdd_app.services.JwtService;
 import jakarta.validation.Valid;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/auth")
 public class AuthController {
     private final JwtService jwtService;
@@ -31,12 +34,12 @@ public class AuthController {
         this.passwordEncoder = passwordEncoder;
 
 	}
-   
+
     @PostMapping("/register")
     public ResponseEntity<MessageResponseHandler> register(@Valid @RequestBody SignupRequest signupRequest) {
         User user = new User();
         user.setEmail(signupRequest.getEmail());
-        user.setName(signupRequest.getUsername());
+        user.setName(signupRequest.getName());
         user.setPassword(passwordEncoder.encode(signupRequest.getPassword()));
 
         authService.register(user);
@@ -62,10 +65,11 @@ public class AuthController {
 
 	}
 
+    @PutMapping("/update")
     public ResponseEntity<JwtResponse> updateCredentials(@Valid @RequestBody SignupRequest request) {
         User user = new User();
         user.setEmail(request.getEmail());
-        user.setName(request.getUsername());
+        user.setName(request.getName());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         
         User updatedUser = authService.updateCredentials(user);
