@@ -14,7 +14,7 @@ public class SignupRequest {
 
     @NotBlank(message = "name is required")
     @Size(max = 30)
-    private String name;
+    private String username;
 
     @NotBlank(message = "password is required")
     @Size(min = 8, max = 40)

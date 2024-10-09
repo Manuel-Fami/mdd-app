@@ -39,7 +39,7 @@ public class AuthController {
     public ResponseEntity<MessageResponseHandler> register(@Valid @RequestBody SignupRequest signupRequest) {
         User user = new User();
         user.setEmail(signupRequest.getEmail());
-        user.setName(signupRequest.getName());
+        user.setName(signupRequest.getUsername());
         user.setPassword(passwordEncoder.encode(signupRequest.getPassword()));
 
         authService.register(user);
@@ -48,6 +48,7 @@ public class AuthController {
 	}
 
 	@PostMapping("/login")
+    @CrossOrigin(origins = "*")
 	public ResponseEntity<JwtResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
         User user = new User();
         user.setEmail(loginRequest.getEmail());
@@ -66,10 +67,11 @@ public class AuthController {
 	}
 
     @PutMapping("/update")
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<JwtResponse> updateCredentials(@Valid @RequestBody SignupRequest request) {
         User user = new User();
         user.setEmail(request.getEmail());
-        user.setName(request.getName());
+        user.setName(request.getUsername());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         
         User updatedUser = authService.updateCredentials(user);

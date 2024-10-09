@@ -7,12 +7,12 @@ public class JwtResponse {
     private Long id;
     private String username;
     private String token;
-    private String mail;
+    private String email;
     
-    public JwtResponse(Long id, String username, String mail, String accessToken) {
+    public JwtResponse(Long id, String username, String email, String accessToken) {
         this.token = accessToken;
         this.id = id;
-        this.mail = mail;
+        this.email = email;
         this.username = username;
     }
 }

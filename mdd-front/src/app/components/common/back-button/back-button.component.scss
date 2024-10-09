@@ -1,0 +1,16 @@
+.back-button {
+  background: none; // Supprime le fond
+  border: none; // Supprime la bordure
+  cursor: pointer;
+
+  margin-left: 15px;
+  margin-top: 10px;
+
+  // Optionnel : ajustement de la taille de l'icône
+  font-size: 30px; // Ajuste la taille de la flèche selon tes besoins
+  color: inherit; // Pour hériter de la couleur du texte environnant
+}
+
+.back-button:hover {
+  color: #007bff; // Change la couleur au survol (facultatif)
+}
