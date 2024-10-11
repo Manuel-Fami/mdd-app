@@ -1,0 +1,67 @@
+.profil-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50vh; // Centrer verticalement
+
+  .input-container {
+    margin: 30px;
+  }
+
+  .user-form {
+    h2 {
+      font-size: 24px;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .input-size {
+      width: 100%; // Assure que les champs de saisie ont la même taille
+      height: 40px;
+      border-radius: 15px;
+    }
+
+    .text-danger {
+      color: red;
+      font-size: 0.8rem;
+      font-style: italic;
+      width: 300px;
+    }
+
+    .btn {
+      width: 60%;
+      margin-left: 20%;
+      padding: 10px;
+      font-size: 16px;
+      background-color: #7e00df;
+      color: rgb(253, 253, 253);
+      border: black solid 1px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #8b41d5;
+      }
+    }
+  }
+
+  .logout-container {
+    margin-top: 1rem;
+    .logout-link {
+      font-size: 16px;
+      color: rgb(184, 2, 2);
+      cursor: pointer;
+      &:hover {
+        color: #ff0000; // Changement de couleur au survol
+      }
+    }
+  }
+}
+.style-bar {
+  margin-top: 20px;
+  width: 70%;
+  height: 1px; /* Hauteur de la barre */
+  background-color: #000000; /* Couleur de fond de la barre */
+}

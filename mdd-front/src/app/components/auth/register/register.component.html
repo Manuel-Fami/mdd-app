@@ -1,15 +1,11 @@
 <app-header></app-header>
 <app-back-button></app-back-button>
 
-<ng-container *ngIf="onError">
-  <app-error-banner [errorMessage]="errorMessage"></app-error-banner>
-</ng-container>
-
 <div class="register-container">
   <div class="register-form">
     <h2 class="text-center mb-4">Inscription</h2>
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-      <div class="mb-3">
+      <div class="mb-3 input-container">
         <label for="username" class="form-label">Nom d'utilisateur</label>
         <input
           type="text"
@@ -26,7 +22,7 @@
         </div>
       </div>
 
-      <div class="mb-3">
+      <div class="mb-3 input-container">
         <label for="email" class="form-label">Email</label>
         <input
           type="email"
@@ -49,7 +45,7 @@
         </div>
       </div>
 
-      <div class="mb-3">
+      <div class="mb-3 input-container">
         <label for="password" class="form-label">Mot de passe</label>
         <input
           type="password"
@@ -74,8 +70,18 @@
       </div>
 
       <div class="d-flex justify-content-center">
-        <button type="submit" class="btn btn-primary btn-small">
-          S'inscrire
+        <button type="submit" class="btn btn-primary" [disabled]="isLoading">
+          <ng-container *ngIf="!isLoading; else loadingTemplate">
+            S'inscrire
+          </ng-container>
+          <ng-template #loadingTemplate>
+            <span
+              class="spinner-border spinner-border-sm"
+              role="status"
+              aria-hidden="true"
+            ></span>
+            Chargement...
+          </ng-template>
         </button>
       </div>
     </form>

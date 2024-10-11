@@ -6,9 +6,9 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { finalize, Subscription } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { SignupResponse } from '../../../models/auth/signup-response';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -16,7 +16,6 @@ import { HeaderComponent } from '../../common/header/header.component';
 import { BackButtonComponent } from '../../common/back-button/back-button.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ErrorBannerComponent } from '../../common/error-banner/error-banner.component';
 
 @Component({
   selector: 'app-register',
@@ -26,16 +25,16 @@ import { ErrorBannerComponent } from '../../common/error-banner/error-banner.com
     BackButtonComponent,
     ReactiveFormsModule,
     CommonModule,
-    ErrorBannerComponent,
+    MatSnackBarModule,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
-  onError: boolean = false;
   errorMessage: string = '';
   formSubmitted: boolean = false;
+  isLoading: boolean = false;
   registerSubscription: Subscription = new Subscription();
 
   constructor(
@@ -58,25 +57,28 @@ export class RegisterComponent implements OnInit {
   }
   onSubmit(): void {
     this.formSubmitted = true;
+    this.isLoading = true;
     if (this.registerForm.valid) {
-      // this.isLoading = true;
       const loginData = this.registerForm.value;
       console.log(loginData);
 
       this.registerSubscription = this.authService
         .register(this.registerForm.value)
+        .pipe(
+          finalize(() => {
+            this.isLoading = false; // Cela sera exécuté à la fin, que ce soit un succès ou une erreur.
+          })
+        )
         .subscribe({
           next: (response: SignupResponse) => {
             // this.isLoading = false;
-            this.snackBar.open(response.message, 'Fermer', {
+            this.snackBar.open('Utilisateur créé avec succes', 'Fermer', {
               duration: 5000,
               verticalPosition: 'top',
             });
             this.router.navigate(['/login']);
           },
           error: (error: unknown) => {
-            console.log('Ici Erreur');
-            console.log(error);
             // this.isLoading = false;
             this.handleError(error);
           },
@@ -113,6 +115,9 @@ export class RegisterComponent implements OnInit {
         'Erreur : une erreur inattendue est survenue. Veuillez réessayer plus tard.';
     }
 
-    this.onError = true;
+    this.snackBar.open(this.errorMessage, 'Fermer', {
+      duration: 5000,
+      verticalPosition: 'top',
+    });
   }
 }

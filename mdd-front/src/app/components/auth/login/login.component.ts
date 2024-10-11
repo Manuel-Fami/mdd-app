@@ -7,8 +7,9 @@ import { HeaderComponent } from '../../common/header/header.component';
 import { BackButtonComponent } from '../../common/back-button/back-button.component';
 import { AuthService } from '../../../services/auth.service';
 import { LoginResponse } from '../../../models/auth/login-response';
-import { Subscription } from 'rxjs';
+import { finalize, Subscription } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +19,7 @@ import { HttpErrorResponse } from '@angular/common/http';
     CommonModule,
     HeaderComponent,
     BackButtonComponent,
+    MatSnackBarModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
@@ -26,12 +28,14 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup; // Formulaire réactif
   loginSubscription: Subscription = new Subscription();
   errorMessage: string = '';
-  onError: boolean = false;
+  isLoading: boolean = false;
+  formSubmitted: boolean = false;
 
   constructor(
     private fb: FormBuilder, // FormBuilder pour créer le formulaire
     private authService: AuthService,
-    private router: Router // Pour la navigation après la connexion
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit() {
@@ -42,22 +46,31 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
+    this.formSubmitted = true;
+
     if (this.loginForm.valid) {
       const loginData = this.loginForm.value; // Récupère les valeurs du formulaire
       console.log('Login form submitted', loginData);
 
-      this.loginSubscription = this.authService.login(loginData).subscribe({
-        next: (response: LoginResponse) => {
-          localStorage.setItem('currentUser', JSON.stringify(response));
-          this.router.navigate(['/dashboard']);
-          // this.isLoading = false;
-          console.log(response);
-        },
-        error: (error: unknown) => {
-          this.handleError(error);
-          // this.isLoading = false;
-        },
-      });
+      this.loginSubscription = this.authService
+        .login(loginData)
+        .pipe(
+          finalize(() => {
+            this.isLoading = false; // Cela sera exécuté à la fin, que ce soit un succès ou une erreur.
+          })
+        )
+        .subscribe({
+          next: (response: LoginResponse) => {
+            localStorage.setItem('currentUser', JSON.stringify(response));
+            this.router.navigate(['/dashboard']);
+            // this.isLoading = false;
+            console.log(response);
+          },
+          error: (error: unknown) => {
+            this.handleError(error);
+            // this.isLoading = false;
+          },
+        });
     }
   }
 
@@ -68,7 +81,7 @@ export class LoginComponent implements OnInit {
           this.errorMessage =
             "Erreur : aucun compte n'est associé à cet email. Veuillez créer un compte.";
           break;
-        case 400:
+        case 403:
           this.errorMessage = 'Erreur : identifiants invalides.';
           break;
         default:
@@ -82,6 +95,10 @@ export class LoginComponent implements OnInit {
       this.errorMessage =
         'Une erreur inattendue est survenue. Veuillez réessayer.';
     }
-    this.onError = true;
+
+    this.snackBar.open(this.errorMessage, 'Fermer', {
+      duration: 5000,
+      verticalPosition: 'top',
+    });
   }
 }

@@ -3,13 +3,13 @@ import { HeaderComponent } from '../common/header/header.component';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
-  selector: 'app-dashboard',
+  selector: 'app-topics',
   standalone: true,
   imports: [HeaderComponent],
-  templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss',
+  templateUrl: './topics.component.html',
+  styleUrl: './topics.component.scss',
 })
-export class DashboardComponent implements OnInit {
+export class TopicsComponent implements OnInit {
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {

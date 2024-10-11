@@ -15,19 +15,18 @@ export class AuthService {
   public pathService = 'http://localhost:8080/api/auth';
 
   constructor(private httpClient: HttpClient, private router: Router) {
-    // let currentUser = localStorage.getItem('currentUser');
-    // if (currentUser) {
-    //   this.loggedIn.next(true);
-    // }
+    let currentUser = localStorage.getItem('currentUser');
+    if (currentUser) {
+      this.loggedIn.next(true);
+    }
   }
 
   public login(loginRequest: LoginRequest): Observable<LoginResponse> {
-    // console.log(`${this.pathService}/login`);
-    // console.log(loginRequest);
     return this.httpClient
       .post<LoginResponse>(`${this.pathService}/login`, loginRequest)
       .pipe(
         tap((response: LoginResponse) => {
+          localStorage.setItem('currentUser', JSON.stringify(response));
           this.loggedIn.next(true);
         })
       );
@@ -40,9 +39,40 @@ export class AuthService {
     );
   }
 
+  isLoggedIn(): Observable<boolean> {
+    return this.loggedIn.asObservable();
+  }
+
+  public updateCredentials(
+    request: SignupRequest,
+    token?: string
+  ): Observable<LoginResponse> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json; charset=utf-8',
+      Authorization: `Bearer ${token}`,
+    });
+    console.log('update');
+
+    return this.httpClient.put<LoginResponse>(
+      `${this.pathService}/update`,
+      request,
+      { headers: headers }
+    );
+  }
+
   logout(): void {
     this.loggedIn.next(false);
     localStorage.removeItem('currentUser');
     this.router.navigate(['/home']);
+  }
+
+  getCurrentUser(): LoginResponse {
+    let currentUser = localStorage.getItem('currentUser');
+    return currentUser ? JSON.parse(currentUser) : null;
+  }
+
+  getToken(): string | null {
+    let currentUser = this.getCurrentUser();
+    return currentUser ? currentUser.token : null;
   }
 }
