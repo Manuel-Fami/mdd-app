@@ -1,7 +1,13 @@
-<app-header></app-header>
+<header>
+  <div class="header-container">
+    <img src="assets/logo.png" alt="Logo" class="navbar-brand logo" />
+  </div>
+</header>
+
 <app-back-button></app-back-button>
 
 <div class="register-container">
+  <img src="assets/logo.png" alt="Logo" class="navbar-brand logo-small" />
   <div class="register-form">
     <h2 class="text-center mb-4">Inscription</h2>
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">

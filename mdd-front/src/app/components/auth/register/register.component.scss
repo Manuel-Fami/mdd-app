@@ -1,46 +1,81 @@
+.header-container {
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid #007bff;
+  @media (max-width: 991px) {
+    display: none;
+  }
+}
+
+.logo {
+  height: 50px;
+  width: auto;
+}
+
 .register-container {
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 70vh; // Centrer verticalement sur toute la hauteur de l'écran
-}
+  margin-top: 70px;
 
-.input-container {
-  margin: 50px;
-}
-
-.register-form {
-  h2 {
-    font-size: 24px;
-    text-align: center;
+  @media (max-width: 991px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0px;
   }
 
-  .input-size {
-    width: 100%; // Assure que les champs de saisie ont la même taille
-    height: 40px;
-    border-radius: 15px;
+  .logo-small {
+    display: none;
+
+    @media (max-width: 991px) {
+      display: flex;
+      width: 400px;
+      margin-bottom: 20px;
+    }
   }
 
-  .text-danger {
-    color: red;
-    font-size: 0.8rem;
-    font-style: italic;
-  }
-  .btn {
-    width: 60%;
-    margin-top: 10px;
-    margin-left: 20%;
-    padding: 10px;
-    font-size: 16px;
-    background-color: #7e00df;
-    color: rgb(253, 253, 253);
-    border: black solid 1px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  .register-form {
+    h2 {
+      font-size: 24px;
+      text-align: center;
+    }
 
-    &:hover {
-      background-color: #8b41d5;
+    .input-container {
+      width: 300px;
+      margin: 50px;
+      @media (max-width: 991px) {
+        margin: 20px;
+      }
+      .input-size {
+        width: 100%; // Assure que les champs de saisie ont la même taille
+        height: 40px;
+        border-radius: 15px;
+        border: 1px solid rgb(154, 154, 154);
+      }
+
+      .text-danger {
+        color: red;
+        font-size: 0.8rem;
+        font-style: italic;
+      }
+    }
+
+    .btn {
+      width: 60%;
+      margin-top: 10px;
+      padding: 10px;
+      font-size: 16px;
+      background-color: #7e00df;
+      color: rgb(253, 253, 253);
+      border: black solid 1px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #8b41d5;
+      }
     }
   }
 }

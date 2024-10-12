@@ -1,9 +1,13 @@
-<div class="logo-loginPage">
-  <app-header></app-header>
-</div>
+<header class="header-large">
+  <div class="header-container">
+    <img src="assets/logo.png" alt="Logo" class="navbar-brand logo" />
+  </div>
+</header>
+
 <app-back-button></app-back-button>
 
 <div class="login-container">
+  <img src="assets/logo.png" alt="Logo" class="navbar-brand logo-small" />
   <div class="login-form">
     <h2 class="text-center mb-4">Se connecter</h2>
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
