@@ -3,11 +3,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 70vh; // Centrer verticalement
+  height: 70vh;
   text-align: center;
 
   .logo {
-    width: 400px; // Taille du logo
+    width: 400px;
     margin-bottom: 20px; // Espacement entre le logo et les boutons
   }
 
@@ -16,10 +16,10 @@
     justify-content: center;
     gap: 80px; // Espacement horizontal entre les boutons
 
-    @media (max-width: 768px) {
+    @media (max-width: 991px) {
       // Version mobile
-      flex-direction: column; // Aligner les boutons verticalement sur mobile
-      gap: 10px; // Espacement vertical réduit entre les boutons
+      flex-direction: column;
+      gap: 10px;
     }
   }
 
@@ -36,7 +36,7 @@
     transition: background-color 0.3s ease;
 
     &:hover {
-      background-color: #0056b3;
+      background-color: #b0b0b1;
     }
   }
 }

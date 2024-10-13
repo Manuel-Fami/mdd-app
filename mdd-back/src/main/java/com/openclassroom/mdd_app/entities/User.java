@@ -33,6 +33,9 @@ public class User implements UserDetails {
     @NotNull(message = "Password cannot be null")
     @Column(nullable = false)
     private String password;
+
+    @OneToMany(mappedBy = "user")
+    private List<Subscription> subscriptions;
    
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

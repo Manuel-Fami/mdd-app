@@ -1,11 +1,17 @@
-<app-header></app-header>
+<header class="header-large">
+  <div class="header-container">
+    <img src="assets/logo.png" alt="Logo" class="navbar-brand logo" />
+  </div>
+</header>
+
 <app-back-button></app-back-button>
 
 <div class="login-container">
+  <img src="assets/logo.png" alt="Logo" class="navbar-brand logo-small" />
   <div class="login-form">
-    <h2 class="text-center mb-4">Se Connecter</h2>
+    <h2 class="text-center mb-4">Se connecter</h2>
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <div class="mb-3">
+      <div class="mb-3 input-container">
         <label for="email" class="form-label">Email</label>
         <input
           type="email"
@@ -15,20 +21,20 @@
           required
         />
         <div
-          *ngIf="loginForm.get('email')?.errors?.['required']"
+          *ngIf="formSubmitted && loginForm.get('email')?.errors?.['required']"
           class="text-danger"
         >
           Ce champ est obligatoire.
         </div>
         <div
-          *ngIf="loginForm.get('email')?.errors?.['email']"
+          *ngIf="formSubmitted && loginForm.get('email')?.errors?.['email']"
           class="text-danger"
         >
           Veuillez saisir une adresse e-mail valide.
         </div>
       </div>
 
-      <div class="mb-3">
+      <div class="mb-3 input-container">
         <label for="password" class="form-label">Mot de passe</label>
         <input
           type="password"
@@ -38,7 +44,7 @@
           required
         />
         <div
-          *ngIf="loginForm.get('password')?.errors?.['required']"
+          *ngIf="formSubmitted && loginForm.get('password')?.errors?.['required']"
           class="text-danger"
         >
           Ce champ est obligatoire.
@@ -46,8 +52,18 @@
       </div>
 
       <div class="d-flex justify-content-center">
-        <button type="submit" class="btn btn-primary btn-small">
-          Se connecter
+        <button type="submit" class="btn btn-primary" [disabled]="isLoading">
+          <ng-container *ngIf="!isLoading; else loadingTemplate">
+            Se connecter
+          </ng-container>
+          <ng-template #loadingTemplate>
+            <span
+              class="spinner-border spinner-border-sm"
+              role="status"
+              aria-hidden="true"
+            ></span>
+            Chargement...
+          </ng-template>
         </button>
       </div>
     </form>

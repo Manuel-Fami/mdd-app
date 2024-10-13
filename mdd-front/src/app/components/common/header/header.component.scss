@@ -8,3 +8,56 @@
   height: 50px;
   width: auto;
 }
+
+.nav-container {
+  width: 100%;
+}
+
+.navbar-collapse {
+  justify-content: end;
+}
+
+.navbar-nav {
+  align-items: end;
+}
+
+.nav-item {
+  cursor: pointer;
+  margin: 0 20px;
+}
+
+.icon-circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #b7b7b7;
+  color: #fff;
+}
+
+.icon-circle i {
+  font-size: 15px;
+}
+
+@media (max-width: 991px) {
+  //Bloc entier toggle
+  .container-fluid {
+  }
+  // Liens nav
+  .navbar-nav {
+    // justify-content: start; /* Centre les éléments pour les écrans <= 991px */
+  }
+
+  // Bouton
+  .navbar-toggler {
+    // display: block; /* Assure que le bouton collapse est visible */
+    // width: 50px;
+  }
+
+  .nav-item {
+    margin: 10px 0; /* Ajoute un espacement entre les éléments dans le mode collapse */
+    // justify-content: flex-start;
+  }
+}

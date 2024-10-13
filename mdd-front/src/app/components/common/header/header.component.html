@@ -1,5 +1,29 @@
 <header>
   <div class="header-container">
-    <img src="assets/logo.png" alt="Logo" class="logo" />
+    <nav class="navbar navbar-expand-lg bg-light nav-container">
+      <div class="container-fluid">
+        <img src="assets/logo.png" alt="Logo" class="navbar-brand logo" />
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarToggler"
+          aria-controls="navbarToggler"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarToggler">
+          <ul class="navbar-nav mb-lg-0">
+            <li class="nav-item" (click)="redirectToDashboard()">Articles</li>
+            <li class="nav-item" (click)="redirectToTopics()">Thèmes</li>
+            <li class="nav-item icon-circle" (click)="redirectToProfile()">
+              <i class="fas fa-thin fa-user"></i>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
   </div>
 </header>
