@@ -1,3 +1,22 @@
 <app-header></app-header>
 
-<p>topics works!</p>
+<div class="container-card">
+  <div class="topic-card" *ngFor="let topic of allTopics">
+    <p class="topic-title">{{ topic.title }}</p>
+    <p class="topic-description">{{ topic.description }}</p>
+    <div class="box-btn">
+      <button
+        (click)="subscribe(topic)"
+        class="btn btn-primary topic-btn"
+        type="submit"
+        [disabled]="isSubscribed(topic.id)"
+        [ngClass]="{
+          'btn-subscribed': isSubscribed(topic.id),
+          'btn-unsubscribed': !isSubscribed(topic.id)
+        }"
+      >
+        S'abonner
+      </button>
+    </div>
+  </div>
+</div>
