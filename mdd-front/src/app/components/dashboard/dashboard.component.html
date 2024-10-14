@@ -1,3 +1,38 @@
 <app-header></app-header>
 
 <p>dashboard works!</p>
+
+<div class="container">
+  <div class="button-container">
+    <button (click)="create()" mat-raised-button color="primary" type="submit">
+      Créer un article
+    </button>
+
+    <!-- <div class="sort-container">
+            <span class="sort-label">Trier par</span>
+            <ng-container *ngIf="ascendingOrder">
+                <mat-icon class="sort-link" (click)="reverseOrder()">keyboard_arrow_down</mat-icon>
+            </ng-container>
+            <ng-container *ngIf="!ascendingOrder">
+                <mat-icon class="sort-link" (click)="reverseOrder()">keyboard_arrow_up</mat-icon>
+            </ng-container>
+        </div> -->
+  </div>
+
+  <div class="article-container">
+    <ng-container *ngFor="let article of articles">
+      <div class="article-card" (click)="onClickDetail(article.id)">
+        <p class="title">{{ article.title }}</p>
+        <div class="article-info">
+          <p>{{ article.user.username }}</p>
+          <p>{{ article.date | date : "dd-MM-YYYY" }}</p>
+        </div>
+        <p class="description">{{ article.description }}</p>
+      </div>
+    </ng-container>
+  </div>
+
+  <!-- <ng-container *ngIf="isLoading">
+    <app-custom-spinner></app-custom-spinner>
+  </ng-container> -->
+</div>

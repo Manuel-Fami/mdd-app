@@ -89,6 +89,7 @@ public class ArticleController {
         return ResponseEntity.ok().body(articleResponseDtos);
 	}
 
+    @GetMapping("/{id}")
     public ResponseEntity<ArticleResponseDTO> getById(@PathVariable Long id) {
 				
 		Article article = articleService.getById(id);

@@ -1,0 +1,49 @@
+.article-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .article-form {
+    h2 {
+      font-size: 24px;
+      text-align: center;
+    }
+
+    .input-container {
+      width: 300px;
+      margin: 50px;
+      @media (max-width: 991px) {
+        margin: 20px;
+      }
+      .input-size {
+        width: 100%;
+        height: 40px;
+        border-radius: 15px;
+        border: 1px solid rgb(154, 154, 154);
+      }
+      .text-danger {
+        color: red;
+        font-size: 0.8rem;
+        font-style: italic;
+        width: 300px;
+      }
+    }
+
+    .btn {
+      width: 50%;
+      margin-top: 10px;
+      padding: 10px;
+      font-size: 16px;
+      background-color: #7e00df;
+      color: rgb(253, 253, 253);
+      border: black solid 1px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #8b41d5;
+      }
+    }
+  }
+}

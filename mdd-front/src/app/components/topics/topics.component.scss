@@ -1,0 +1,37 @@
+.container-card {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  // padding: 20px;
+
+  .topic-card {
+    width: 45%;
+    // min-height: 200px;
+    margin: 20px;
+    padding: 20px;
+
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    .topic-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .box-btn {
+      display: flex;
+      justify-content: center;
+      .topic-btn {
+        width: 170px;
+      }
+      .btn-unsubscribed {
+        background-color: #7e00df;
+      }
+      .btn-subscribed {
+        background-color: #7a01d690;
+      }
+    }
+  }
+}
