@@ -1,0 +1,19 @@
+// {
+//   "version": "0.2.0",
+//   "configurations": [
+//     {
+//       "type": "java",
+//       "name": "Debug Spring Boot App",
+//       "request": "launch",
+//       "mainClass": "com.openclassroom.mdd_app.MddAppApplication", // remplace par ta classe principale
+//       "args": "",
+//       "env": {
+//         "DATABASE_USERNAME": "root",
+//         "DATABASE_PASSWORD": "Azerty14!",
+//         "DATABASE_URL": "jdbc:mysql://localhost:3306/mdd_db",
+//         "JWT_SECRET_KEY": "myjwtsecretkey",
+//         "JWT_EXPIRATION_TIME": "1800000"
+//       }
+//     }
+//   ]
+// }

@@ -29,6 +29,7 @@ public class ControllerExceptionHandler {
         Map<String, Object> response = new HashMap<>();
         response.put("message", "Token expiré");
         response.put("status", HttpStatus.UNAUTHORIZED.value());
+        System.err.println("token expiré !");
         
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
     }

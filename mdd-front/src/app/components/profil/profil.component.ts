@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HeaderComponent } from '../common/header/header.component';
 import { LoginResponse } from '../../models/auth/login-response';
 import {
@@ -13,6 +13,9 @@ import { AuthService } from '../../services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { finalize, Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { TopicService } from '../../services/topic.service';
+import { SubscriptionData } from '../../models/subscription';
+import { MessageResponse } from '../../models/message-response';
 
 @Component({
   selector: 'app-profil',
@@ -21,16 +24,19 @@ import { CommonModule } from '@angular/common';
   templateUrl: './profil.component.html',
   styleUrl: './profil.component.scss',
 })
-export class ProfilComponent {
+export class ProfilComponent implements OnInit, OnDestroy {
   currentUser!: LoginResponse;
   userForm!: FormGroup;
   isLoading: boolean = false;
+  onError: boolean = false;
   errorMessage: string = '';
   formSubmitted: boolean = false;
+  userTopics: SubscriptionData[] = [];
+  subscriptions: Subscription = new Subscription();
 
   constructor(
     private authService: AuthService,
-    // private topicService: TopicService,
+    private topicService: TopicService,
     private fb: FormBuilder,
     private snackBar: MatSnackBar
   ) {}
@@ -40,7 +46,7 @@ export class ProfilComponent {
     if (this.currentUser?.email && this.currentUser?.username) {
       this.initForm(this.currentUser);
     }
-    // this.loadUserSubscription();
+    this.loadUserSubscription();
   }
 
   initForm(currentUser: LoginResponse): void {
@@ -88,7 +94,7 @@ export class ProfilComponent {
           },
         });
 
-      // this.subscriptions.add(updateCredsSub);
+      this.subscriptions.add(updateCredsSub);
     }
   }
 
@@ -125,20 +131,54 @@ export class ProfilComponent {
     this.authService.logout();
   }
 
-  // loadUserSubscription(): void {
-  //   const userSub : Subscription = this.topicService.getUserTopics(this.currentUser?.token).subscribe({
-  //     next: (response: SubscriptionData[]) => {
-  //       this.isLoading = false;
-  //       this.userTopics = response;
-  //     },
-  //     error: (error) => {
-  //       console.error(error);
-  //       this.isLoading = false;
-  //       this.onError = true;
-  //       this.errorMessage = "Erreur : une erreur est survenue lors de la récupération des abonnements"
-  //     },
-  //   });
+  loadUserSubscription(): void {
+    const userSub: Subscription = this.topicService
+      .getUserTopics(this.currentUser?.token)
+      .subscribe({
+        next: (response: SubscriptionData[]) => {
+          this.isLoading = false;
+          this.userTopics = response;
+          console.log(response);
+        },
+        error: (error) => {
+          this.isLoading = false;
+          this.onError = true;
+          this.errorMessage =
+            'Erreur : une erreur est survenue lors de la récupération des abonnements';
+        },
+      });
 
-  //   this.subscriptions.add(userSub);
-  // }
+    this.subscriptions.add(userSub);
+  }
+
+  unsubscribeTopic(topic: SubscriptionData): void {
+    this.isLoading = true;
+
+    const unsubscribeSub: Subscription = this.topicService
+      .unsubscribe(topic.id, this.currentUser?.token)
+      .subscribe({
+        next: (response: MessageResponse) => {
+          this.isLoading = false;
+          this.snackBar.open(response.message, 'Fermer', {
+            duration: 3000,
+            verticalPosition: 'top',
+          });
+
+          this.loadUserSubscription();
+        },
+        error: (error: unknown) => {
+          console.error(error);
+          this.isLoading = false;
+          this.onError = true;
+          this.errorMessage =
+            'Erreur : une erreur est survenue lors du désabonnement';
+        },
+      });
+
+    this.subscriptions.add(unsubscribeSub);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
 }

@@ -15,7 +15,7 @@
           'btn-unsubscribed': !isSubscribed(topic.id)
         }"
       >
-        S'abonner
+        {{ isSubscribed(topic.id) ? "Déjà abonné" : "S'abonner" }}
       </button>
     </div>
   </div>

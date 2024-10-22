@@ -1,5 +1,6 @@
 package com.openclassroom.mdd_app.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 // import com.fasterxml.jackson.annotation.JsonIgnoreType;
 
 import jakarta.persistence.Entity;
@@ -14,7 +15,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name="subscriptions")
-// @JsonIgnoreType({"user"})
+// @JsonIgnoreType
 public class Subscription {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -24,6 +25,7 @@ public class Subscription {
     @JoinColumn(name = "topic_id", referencedColumnName = "id", nullable = false)
     private Topic topic;
 	
+    @JsonIgnore
 	@ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User user;

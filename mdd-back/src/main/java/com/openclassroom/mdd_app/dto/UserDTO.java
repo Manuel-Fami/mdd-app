@@ -8,7 +8,7 @@ public class UserDTO {
 
     private Long id;
     @NotBlank(message = "name is required")
-	private String name;
+	private String username;
     @NotBlank(message = "email is required")
     @Email(message="Invalid email format")
     private String email;
@@ -24,11 +24,11 @@ public class UserDTO {
     }
 
     public String getName() {
-        return this.name;
+        return this.username;
     }
     
-    public void setName(String name) {
-		this.name = name;
+    public void setName(String username) {
+		this.username = username;
 	}
 
     @NotNull(message = "email cannot be NULL")

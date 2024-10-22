@@ -1,0 +1,87 @@
+.detail-container {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+
+  .title-back {
+    display: flex;
+    align-items: end;
+    justify-content: flex-start;
+    gap: 30px;
+  }
+
+  .article-detail-container {
+    .article-info {
+      display: flex;
+      align-items: center;
+      gap: 100px;
+      margin: 20px;
+      margin-left: 80px;
+
+      p {
+        margin: 10px;
+      }
+    }
+
+    .article-content {
+      margin: 20px;
+      margin-left: 90px;
+    }
+  }
+  .bar-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    .style-bar {
+      width: 85%;
+      height: 1px;
+      background-color: #000000;
+    }
+  }
+
+  .comments-container {
+    margin-left: 90px;
+
+    .comments {
+      .comment {
+        display: flex;
+        gap: 100px;
+        margin: 20px;
+
+        .comment-content {
+          background-color: rgba(240, 240, 240, 0.995);
+          margin-right: 80px;
+          padding: 10px;
+          width: 100%;
+          border-radius: 10px;
+        }
+      }
+    }
+  }
+
+  .form-container {
+    margin: 10px;
+    margin-left: 90px;
+    padding: 10px;
+
+    .form-group {
+      .d-flex {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      textarea {
+        flex-grow: 1; // Permet au textarea de prendre tout l'espace disponible
+      }
+      .btn-primary {
+        background-color: white;
+        border: none;
+        i {
+          color: purple;
+        }
+      }
+    }
+  }
+}

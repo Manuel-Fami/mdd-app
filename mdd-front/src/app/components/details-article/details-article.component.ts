@@ -6,14 +6,25 @@ import { ArticleDetail } from '../../models/article';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { DashboardService } from '../../services/dashboard.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Comment } from '../../models/comment';
+import { BackButtonComponent } from '../common/back-button/back-button.component';
 
 @Component({
   selector: 'app-details-article',
   standalone: true,
-  imports: [HeaderComponent, CommonModule],
+  imports: [
+    HeaderComponent,
+    CommonModule,
+    BackButtonComponent,
+    ReactiveFormsModule,
+  ],
   templateUrl: './details-article.component.html',
   styleUrl: './details-article.component.scss',
 })
@@ -32,7 +43,6 @@ export class DetailsArticleComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private service: DashboardService,
     private route: ActivatedRoute,
-    private router: Router,
     private fb: FormBuilder
   ) {}
 

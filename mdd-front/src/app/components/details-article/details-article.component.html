@@ -1,25 +1,23 @@
 <app-header></app-header>
 
-<p>details-article works!</p>
-
 <ng-container *ngIf="article">
   <div class="detail-container">
-    <div class="back-link">
-      <!-- <mat-icon (click)="back()">arrow_back</mat-icon> -->
+    <div class="title-back">
+      <app-back-button></app-back-button>
+      <h2>{{ article.title }}</h2>
     </div>
 
     <div class="article-detail-container">
-      <h2>{{ article.title }}</h2>
       <div class="article-info">
         <p>{{ article.date | date : "dd-MM-YYYY" }}</p>
-        <p id="username">{{ article.user.username }}</p>
+        <p id="username">{{ article.user.name }}</p>
         <p id="topic-title">{{ article.topic.title }}</p>
       </div>
       <div class="article-content">Content: {{ article.description }}</div>
     </div>
 
-    <div class="horizontal-bar">
-      <hr />
+    <div class="bar-container">
+      <div class="style-bar"></div>
     </div>
 
     <div class="comments-container">
@@ -28,13 +26,47 @@
       <ng-container *ngIf="comments">
         <div class="comments" *ngFor="let comment of comments">
           <div class="comment">
-            <p>{{ comment.user.username }}</p>
+            <p>{{ comment.user.name }}</p>
             <div class="comment-content">
               <p>{{ comment.content }}</p>
             </div>
           </div>
         </div>
       </ng-container>
+    </div>
+
+    <div class="form-container">
+      <form [formGroup]="commentForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <div class="d-flex">
+            <textarea
+              id="commentContent"
+              class="form-control"
+              formControlName="content"
+              rows="4"
+              placeholder="Ecrivez ici votre commentaire"
+              required
+            ></textarea>
+            <!-- <div class="btn-container"> -->
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-paper-plane fa-3x"></i>
+            </button>
+            <!-- </div> -->
+          </div>
+          <div
+            *ngIf="commentForm.get('content')?.hasError('required')"
+            class="invalid-feedback"
+          >
+            Ce champ est requis.
+          </div>
+          <div
+            *ngIf="commentForm.get('content')?.hasError('maxlength')"
+            class="invalid-feedback"
+          >
+            La description ne doit pas dépasser 2500 caractères.
+          </div>
+        </div>
+      </form>
     </div>
 
     <!-- <div class="form-container">
@@ -56,10 +88,6 @@
                     </div>
                 </form>
         </div> -->
-
-    <div class="horizontal-bar">
-      <hr />
-    </div>
 
     <!-- <ng-container *ngIf="isLoading">
             <app-custom-spinner></app-custom-spinner>
