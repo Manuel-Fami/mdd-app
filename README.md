@@ -4,8 +4,8 @@ mdd-app is a web application that allows users to browse different topics, subsc
 
 ## Prerequisites
 
-- Nodejs (npm) v18
-- java JDK 11 ou superieur
+- Nodejs (npm) v20.12.2
+- java JDK 21
 - Maeven
 - MySQL
 
