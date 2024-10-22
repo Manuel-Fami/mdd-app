@@ -10,14 +10,20 @@
     }
 
     .input-container {
-      width: 300px;
-      margin: 50px;
+      width: 400px;
+      margin: 30px;
       @media (max-width: 991px) {
         margin: 20px;
       }
       .input-size {
         width: 100%;
         height: 40px;
+        border-radius: 15px;
+        border: 1px solid rgb(154, 154, 154);
+      }
+      .input-size-description {
+        width: 100%;
+        height: 200px;
         border-radius: 15px;
         border: 1px solid rgb(154, 154, 154);
       }

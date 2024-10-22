@@ -74,12 +74,29 @@
   </div>
 
   <div class="logout-container">
-    <span
-      class="logout-link text-primary"
-      style="cursor: pointer"
-      (click)="logOut()"
-      >Se déconnecter</span
-    >
+    <span class="logout-link" (click)="logOut()">Se déconnecter</span>
   </div>
   <div class="style-bar"></div>
+
+  <div class="subscription-container">
+    <h2>Abonnements</h2>
+
+    <div class="card-container">
+      <div class="topic-card" *ngFor="let userTopic of userTopics">
+        <p class="topic-title">{{ userTopic.topic.title }}</p>
+        <div class="topic-content" *ngIf="userTopic.topic">
+          <p class="topic-description">{{ userTopic.topic.description }}</p>
+          <div class="box-btn">
+            <button
+              (click)="unsubscribeTopic(userTopic)"
+              class="btn btn-primary topic-btn"
+              type="submit"
+            >
+              Se désabonner
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

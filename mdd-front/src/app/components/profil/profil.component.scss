@@ -12,7 +12,7 @@
     }
     .input-container {
       width: 300px;
-      margin: 50px;
+      margin: 30px;
       @media (max-width: 991px) {
         margin: 20px;
       }
@@ -49,6 +49,7 @@
     }
   }
 
+  // -------------- Logout --------------------
   .logout-container {
     margin-top: 1rem;
     .logout-link {
@@ -60,10 +61,53 @@
       }
     }
   }
-}
-.style-bar {
-  margin-top: 20px;
-  width: 70%;
-  height: 1px; /* Hauteur de la barre */
-  background-color: #000000; /* Couleur de fond de la barre */
+  // -------------- bar line --------------------
+  .style-bar {
+    margin: 20px;
+    width: 70%;
+    height: 1px; /* Hauteur de la barre */
+    background-color: #000000; /* Couleur de fond de la barre */
+  }
+
+  // -------------- Unsuscribed --------------------
+
+  .subscription-container {
+    width: 80%;
+    text-align: center;
+    h2 {
+      font-size: 24px;
+    }
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      .topic-card {
+        border: 1px solid red;
+        width: 45%;
+        // min-height: 200px;
+        margin: 20px;
+        padding: 20px;
+
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background-color: #f8f9fa;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+        .topic-title {
+          font-size: 1.2rem;
+          font-weight: bold;
+        }
+
+        .box-btn {
+          display: flex;
+          justify-content: center;
+          .topic-btn {
+            width: 170px;
+            background-color: #7e00df;
+            border: none;
+          }
+        }
+      }
+    }
+  }
 }

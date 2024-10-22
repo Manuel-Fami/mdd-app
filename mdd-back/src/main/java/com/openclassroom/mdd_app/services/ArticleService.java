@@ -3,6 +3,8 @@ package com.openclassroom.mdd_app.services;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.openclassroom.mdd_app.entities.Article;
@@ -21,6 +23,8 @@ public class ArticleService {
 	public UserRepository userRepository;
 	public TopicRepository topicRepository;
 	public SubscriptionRepository subscriptionRepository;
+	private static final Logger logger = LoggerFactory.getLogger(ArticleService.class);
+
 
     public ArticleService(ArticleRepository articleRepository, UserRepository userRepository, 
 			TopicRepository topicRepository,SubscriptionRepository subscriptionRepository) {
@@ -43,12 +47,19 @@ public class ArticleService {
 		Long userId = currentUser.getId();
 			
 		List<Subscription> subscriptions = subscriptionRepository.findByUserId(userId);
+		logger.info("Abonnements trouvés pour l'utilisateur {}: {}", username, subscriptions);
+
 
 	    List<Long> topicIds = subscriptions.stream()
 	                 .map(subscription -> subscription.getTopic().getId())
 	                 .collect(Collectors.toList());
 
+		logger.info("IDs des topics abonnés: {}", topicIds);
+
+
 	    List<Article> articles = articleRepository.findByTopicIdIn(topicIds);
+		logger.info("Articles récupérés: {}", articles);
+
 	         
 	    return articles;		
 	}

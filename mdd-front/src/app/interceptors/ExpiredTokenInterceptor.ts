@@ -1,32 +1,29 @@
 import {
   HttpErrorResponse,
   HttpEvent,
-  HttpHandler,
-  HttpInterceptor,
+  HttpHandlerFn,
   HttpRequest,
 } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, catchError, throwError } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 
-@Injectable()
-export class ExpiredTokenInterceptor implements HttpInterceptor {
-  constructor(private router: Router, private authService: AuthService) {}
+export function ExpiredTokenInterceptor(
+  request: HttpRequest<any>,
+  next: HttpHandlerFn
+): Observable<HttpEvent<any>> {
+  const router = inject(Router);
+  const authService = inject(AuthService);
 
-  intercept<T>(
-    request: HttpRequest<T>,
-    next: HttpHandler
-  ): Observable<HttpEvent<String>> {
-    return next.handle(request).pipe(
-      catchError((error: HttpErrorResponse) => {
-        if (error.status === 401) {
-          this.authService.logout();
-          localStorage.removeItem('currentUser');
-          this.router.navigate(['/login']);
-        }
-        return throwError(error);
-      })
-    );
-  }
+  return next(request).pipe(
+    catchError((error: HttpErrorResponse) => {
+      if (error.status === 401) {
+        authService.logout();
+        localStorage.removeItem('currentUser');
+        router.navigate(['/login']);
+      }
+      return throwError(() => error);
+    })
+  );
 }

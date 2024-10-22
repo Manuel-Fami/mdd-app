@@ -10,9 +10,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
-import { provideHttpClient } from '@angular/common/http'; // Importer HTTP_INTERCEPTORS
+import { provideHttpClient, withInterceptors } from '@angular/common/http'; // Importer HTTP_INTERCEPTORS
 // import { XsrfInterceptor } from './interceptors/Xsrf.interceptor';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { ExpiredTokenInterceptor } from './interceptors/ExpiredTokenInterceptor';
 
 import { routes } from './app.routes';
 import { AppComponent } from './app.component';
@@ -22,7 +23,9 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(),
+    provideHttpClient(
+      withInterceptors([ExpiredTokenInterceptor]) // Ajout de l'intercepteur ici
+    ),
     ReactiveFormsModule,
     provideAnimationsAsync(),
   ],
@@ -32,7 +35,9 @@ bootstrapApplication(AppComponent, {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(),
+    provideHttpClient(
+      withInterceptors([ExpiredTokenInterceptor]) // Ajout de l'intercepteur ici
+    ),
     BrowserAnimationsModule, // Module pour les animations Angular Material
     MatButtonModule, // Modules Angular Material
     MatFormFieldModule,

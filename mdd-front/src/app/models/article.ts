@@ -13,7 +13,7 @@ export class Article {
 
 export class UserInfo {
   id!: number;
-  username!: string;
+  name!: string;
 }
 
 export class ArticleRequest {

@@ -31,6 +31,7 @@ public class Article {
 	@Column(nullable = false)
 	private String title;
 	
+	@NotNull(message = "Description cannot be NULL")
 	@Size(max=2500)
 	private String description;
 	

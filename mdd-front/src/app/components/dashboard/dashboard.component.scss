@@ -1,0 +1,37 @@
+.create-btn {
+  width: 170px;
+  margin: 20px;
+  background-color: #7e00df;
+  border: none;
+}
+
+.article-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+
+  .article-card {
+    width: 45%;
+    // min-height: 200px;
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    &:hover {
+      cursor: pointer;
+    }
+
+    .title {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .article-info {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+}

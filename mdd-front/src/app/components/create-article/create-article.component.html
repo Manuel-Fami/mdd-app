@@ -7,16 +7,16 @@
     <h2>Créer un article</h2>
     <form (ngSubmit)="onSubmit()" [formGroup]="articleForm">
       <div class="mb-3 input-container">
-        <label for="topicSelect" class="form-label"
+        <!-- <label for="topicSelect" class="form-label"
           >Sélectionnez un thème</label
-        >
+        > -->
         <select
           id="topicSelect"
           class="form-select input-size"
           formControlName="topicId"
           required
         >
-          <option value="" disabled selected>Choisissez un thème...</option>
+          <option value="" disabled selected>Sélectionner un thème...</option>
           <option *ngFor="let topic of topics" [value]="topic.id">
             {{ topic.title }}
           </option>
@@ -32,12 +32,13 @@
       </div>
 
       <div class="mb-3 input-container">
-        <label for="title" class="form-label">Titre</label>
+        <!-- <label for="title" class="form-label">Titre</label> -->
         <input
           type="text"
           class="form-control input-size"
           id="title"
           formControlName="title"
+          placeholder="Titre de l'article"
           required
         />
         <div
@@ -49,12 +50,13 @@
       </div>
 
       <div class="mb-3 input-container">
-        <label for="description" class="form-label">Description</label>
+        <!-- <label for="description" class="form-label">Description</label> -->
         <input
           type="text"
-          class="form-control input-size"
+          class="form-control input-size-description"
           id="description"
           formControlName="description"
+          placeholder="Contenu de l'article"
           required
         />
         <div
