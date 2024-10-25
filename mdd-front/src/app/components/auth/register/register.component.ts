@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -30,7 +30,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
   registerForm!: FormGroup;
   errorMessage: string = '';
   formSubmitted: boolean = false;
@@ -119,5 +119,9 @@ export class RegisterComponent implements OnInit {
       duration: 5000,
       verticalPosition: 'top',
     });
+  }
+
+  ngOnDestroy(): void {
+    this.registerSubscription.unsubscribe();
   }
 }

@@ -42,8 +42,6 @@ export class DashboardComponent implements OnInit {
       .getArticles(this.currentUser.token)
       .subscribe({
         next: (response: Article[]) => {
-          console.log('tests');
-          console.log(response);
           this.articles = response.sort((a, b) => {
             const dateA = new Date(a.date);
             const dateB = new Date(b.date);

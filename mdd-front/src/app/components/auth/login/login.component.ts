@@ -24,7 +24,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   loginForm!: FormGroup; // Formulaire réactif
   loginSubscription: Subscription = new Subscription();
   errorMessage: string = '';
@@ -63,12 +63,12 @@ export class LoginComponent implements OnInit {
           next: (response: LoginResponse) => {
             localStorage.setItem('currentUser', JSON.stringify(response));
             this.router.navigate(['/dashboard']);
-            // this.isLoading = false;
+            this.isLoading = false;
             console.log(response);
           },
           error: (error: unknown) => {
             this.handleError(error);
-            // this.isLoading = false;
+            this.isLoading = false;
           },
         });
     }
@@ -100,5 +100,9 @@ export class LoginComponent implements OnInit {
       duration: 5000,
       verticalPosition: 'top',
     });
+  }
+
+  ngOnDestroy(): void {
+    this.loginSubscription.unsubscribe();
   }
 }

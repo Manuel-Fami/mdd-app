@@ -85,7 +85,6 @@ export class TopicsComponent implements OnInit {
           });
         },
         error: (error: unknown) => {
-          console.error(error);
           this.isLoading = false;
           this.onError = true;
           this.errorMessage =

@@ -11,7 +11,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { provideHttpClient, withInterceptors } from '@angular/common/http'; // Importer HTTP_INTERCEPTORS
-// import { XsrfInterceptor } from './interceptors/Xsrf.interceptor';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { ExpiredTokenInterceptor } from './interceptors/ExpiredTokenInterceptor';
 
